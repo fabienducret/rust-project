@@ -1,9 +1,11 @@
 mod entities;
-mod hello;
+mod presenters;
+use crate::presenters::console_presenter::Presenter;
 
 fn main() {
-    println!("Welcome on your Library Manager !");
+    Presenter::print_text("Welcome on your Library Manager !".to_string());
 
-    let name = hello::ask_for_name();
-    println!("Hello, {}", name);
+    let name = Presenter::ask_for_line("What is your name ?".to_string());
+
+    Presenter::print_text("Hello, ".to_string() + &name);
 }

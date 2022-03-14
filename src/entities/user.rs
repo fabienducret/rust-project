@@ -1,13 +1,18 @@
+pub trait IUser {
+    fn new(name: String) -> Self;
+    fn get_name(&self) -> String;
+}
+
 pub struct User {
     name: String,
 }
 
-impl User {
-    pub fn new(name: String) -> User {
+impl IUser for User {
+    fn new(name: String) -> Self {
         User { name }
     }
 
-    pub fn get_name(&self) -> String {
+    fn get_name(&self) -> String {
         return format!("{}", self.name);
     }
 }
