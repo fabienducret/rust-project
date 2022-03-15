@@ -1,2 +1,2 @@
-pub mod ilibrary_services;
-pub mod ipresenter;
+pub mod library_services;
+pub mod presenter;
