@@ -9,15 +9,15 @@ impl IPresenter for Presenter {
     }
 
     fn print_text_blue(&mut self, text: String) {
-        println!("\x1b[34m{}\x1b[0m", text);
+        self.print_text("\x1b[34m".to_string() + &text + "\x1b[0m");
     }
 
     fn print_text_green(&mut self, text: String) {
-        println!("\x1b[32m{}\x1b[0m", text);
+        self.print_text("\x1b[32m".to_owned() + &text + "\x1b[0m");
     }
 
     fn ask_for_line(&mut self, question: String) -> String {
-        println!("{}", question);
+        self.print_text(question);
         let mut param = String::new();
         io::stdin()
             .read_line(&mut param)
