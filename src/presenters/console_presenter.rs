@@ -1,13 +1,14 @@
+use crate::interfaces::ipresenter::IPresenter;
 use std::io;
 
 pub struct Presenter {}
 
-impl Presenter {
-    pub fn print_text(text: String) {
+impl IPresenter for Presenter {
+    fn print_text(&mut self, text: String) {
         println!("{}", text);
     }
 
-    pub fn ask_for_line(question: String) -> String {
+    fn ask_for_line(&mut self, question: String) -> String {
         println!("{}", question);
         let mut param = String::new();
         io::stdin()
