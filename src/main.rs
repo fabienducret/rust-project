@@ -3,7 +3,6 @@ mod interfaces;
 mod presenters;
 mod services;
 
-use interfaces::library_services::ILibraryServices;
 use interfaces::presenter::Presenter;
 use presenters::console_presenter::ConsolePresenter;
 use services::library_services::LibraryServices;
