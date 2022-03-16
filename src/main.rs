@@ -45,8 +45,10 @@ fn get_action(presenter: &mut Presenter) -> u32 {
         .trim()
         .parse();
 
-    match action {
-        Ok(action) => return action,
-        Err(_) => return 0,
+    let action = match action {
+        Ok(action) => action,
+        Err(_) => 0,
     };
+
+    return action;
 }
