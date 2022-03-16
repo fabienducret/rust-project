@@ -34,13 +34,19 @@ fn ask_for_action(presenter: &mut Presenter, library_services: &mut LibraryServi
             2 => library_services.list_book(),
             3 => library_services.delete_book(),
             9 => presenter.print_text_blue("\nBye ! :)".to_string()),
-            _ => presenter.print_text("Invalid action".to_string()),
+            _ => presenter.print_text("\nInvalid action".to_string()),
         }
     }
 }
 
 fn get_action(presenter: &mut Presenter) -> u32 {
-    let action = presenter.ask_for_line("Please enter your action :".to_string());
+    let action = presenter
+        .ask_for_line("Please enter your action :".to_string())
+        .trim()
+        .parse();
 
-    return action.trim().parse().expect("invalid");
+    match action {
+        Ok(action) => return action,
+        Err(_) => return 0,
+    };
 }
