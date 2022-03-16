@@ -40,12 +40,9 @@ fn ask_for_action(presenter: &mut Presenter, library_services: &mut LibraryServi
 }
 
 fn get_action(presenter: &mut Presenter) -> u32 {
-    let action = presenter
-        .ask_for_line("Please enter your action :".to_string())
-        .trim()
-        .parse();
+    let action_input = presenter.ask_for_line("Please enter your action :".to_string());
 
-    let action = match action {
+    let action = match action_input.trim().parse() {
         Ok(action) => action,
         Err(_) => 0,
     };
