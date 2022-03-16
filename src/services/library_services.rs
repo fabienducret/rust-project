@@ -1,7 +1,7 @@
-use crate::interfaces::{library_services::ILibraryServices, presenter::IPresenter};
+use crate::interfaces::{library_services::ILibraryServices, presenter::Presenter};
 
 pub struct LibraryServices {
-    pub(crate) presenter: Box<dyn IPresenter>,
+    pub(crate) presenter: Box<dyn Presenter>,
 }
 
 impl ILibraryServices for LibraryServices {
