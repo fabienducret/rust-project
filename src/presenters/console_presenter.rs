@@ -1,9 +1,9 @@
 use crate::interfaces::presenter::IPresenter;
 use std::io;
 
-pub struct Presenter {}
+pub struct ConsolePresenter {}
 
-impl IPresenter for Presenter {
+impl IPresenter for ConsolePresenter {
     fn print_text(&mut self, text: String) {
         println!("{}", text);
     }
