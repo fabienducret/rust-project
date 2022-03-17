@@ -10,9 +10,10 @@ impl LibraryServices {
         self.presenter.print_text_blue("\nAdding a book section.");
         let book_title = self.presenter.ask_for_line("Enter the title : ");
 
-        self.repository.add(book_title);
+        let book = self.repository.add(book_title.trim().to_string());
 
-        self.presenter.print_text_green("Book correclty added !");
+        self.presenter
+            .print_text_green(&format!("Book \"{}\" correclty added !", book.get_title())[..]);
     }
 
     pub fn list_books(&mut self) {

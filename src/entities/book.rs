@@ -1,5 +1,5 @@
 pub struct Book {
-    pub title: String,
+    title: String,
 }
 
 impl Book {
