@@ -1,16 +1,19 @@
 mod entities;
 mod interfaces;
 mod presenters;
+mod repositories;
 mod services;
 
 use interfaces::presenter::Presenter;
 use presenters::console_presenter::ConsolePresenter;
+use repositories::memory_repository::MemoryRepository;
 use services::library_services::LibraryServices;
 
 fn main() {
     let mut presenter = ConsolePresenter {};
     let mut library_services = LibraryServices {
         presenter: Box::new(ConsolePresenter {}),
+        repository: Box::new(MemoryRepository {}),
     };
 
     presenter.print_text_blue("\nWelcome on your Library Manager !\n");
@@ -28,7 +31,7 @@ fn ask_for_action(presenter: &mut ConsolePresenter, library_services: &mut Libra
 
         match action {
             1 => library_services.add_book(),
-            2 => library_services.list_book(),
+            2 => library_services.list_books(),
             3 => library_services.delete_book(),
             9 => presenter.print_text_blue("\nBye ! :)"),
             _ => presenter.print_text_red("\nInvalid action"),
