@@ -13,7 +13,7 @@ fn main() {
         presenter: Box::new(ConsolePresenter {}),
     };
 
-    presenter.print_text_blue("\nWelcome on your Library Manager !\n".to_string());
+    presenter.print_text_blue("\nWelcome on your Library Manager !\n");
 
     ask_for_action(&mut presenter, &mut library_services);
 }
@@ -22,9 +22,7 @@ fn ask_for_action(presenter: &mut ConsolePresenter, library_services: &mut Libra
     let mut action = 0;
 
     while action != 9 {
-        presenter.print_text(
-            "\n1 for adding \n2 for listing \n3 for deleting \n9 for leaving".to_string(),
-        );
+        presenter.print_text("\n1 for adding \n2 for listing \n3 for deleting \n9 for leaving");
 
         action = get_action(presenter);
 
@@ -32,14 +30,14 @@ fn ask_for_action(presenter: &mut ConsolePresenter, library_services: &mut Libra
             1 => library_services.add_book(),
             2 => library_services.list_book(),
             3 => library_services.delete_book(),
-            9 => presenter.print_text_blue("\nBye ! :)".to_string()),
-            _ => presenter.print_text_blue("\nInvalid action".to_string()),
+            9 => presenter.print_text_blue("\nBye ! :)"),
+            _ => presenter.print_text_blue("\nInvalid action"),
         }
     }
 }
 
 fn get_action(presenter: &mut ConsolePresenter) -> u32 {
-    let action_input = presenter.ask_for_line("Please enter your action :".to_string());
+    let action_input = presenter.ask_for_line("Please enter your action :");
 
     match action_input.trim().parse() {
         Ok(action) => action,
