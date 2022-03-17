@@ -16,6 +16,10 @@ impl Presenter for ConsolePresenter {
         self.print_text(format!("\x1b[32m{}\x1b[0m", text).as_str());
     }
 
+    fn print_text_red(&mut self, text: &str) {
+        self.print_text(format!("\x1b[31m{}\x1b[0m", text).as_str());
+    }
+
     fn ask_for_line(&mut self, question: &str) -> String {
         self.print_text(question);
         let mut param = String::new();

@@ -31,7 +31,7 @@ fn ask_for_action(presenter: &mut ConsolePresenter, library_services: &mut Libra
             2 => library_services.list_book(),
             3 => library_services.delete_book(),
             9 => presenter.print_text_blue("\nBye ! :)"),
-            _ => presenter.print_text_blue("\nInvalid action"),
+            _ => presenter.print_text_red("\nInvalid action"),
         }
     }
 }
