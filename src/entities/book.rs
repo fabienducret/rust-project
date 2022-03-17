@@ -1,13 +1,13 @@
-pub trait IBook {
-    fn get_title(&self) -> String;
-}
-
 pub struct Book {
     pub title: String,
 }
 
-impl IBook for Book {
-    fn get_title(&self) -> String {
+impl Book {
+    pub fn new(title: String) -> Self {
+        Book { title }
+    }
+
+    pub fn get_title(&self) -> String {
         return format!("{}", self.title);
     }
 }

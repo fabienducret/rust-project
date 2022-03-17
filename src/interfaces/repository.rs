@@ -1,7 +1,7 @@
-use crate::entities::book::IBook;
+use crate::entities::book::Book;
 
 pub trait Repository {
-    fn add(&mut self, title: String) -> Box<dyn IBook>;
+    fn add(&mut self, title: String) -> Book;
     fn list(&mut self);
     fn delete(&mut self);
 }
