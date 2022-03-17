@@ -11,6 +11,8 @@ impl Repository for MemoryRepository {
 
         true
     }
-    fn list(&mut self) {}
+    fn list(&mut self) -> &Vec<Book> {
+        &self.books
+    }
     fn delete(&mut self) {}
 }

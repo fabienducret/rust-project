@@ -7,7 +7,7 @@ pub struct LibraryServices {
 
 impl LibraryServices {
     pub fn add_book(&mut self) {
-        self.presenter.print_text_blue("\nAdding a book section.");
+        self.presenter.print_text_blue("\nAdding a book section.\n");
         let book_title = self.presenter.ask_for_line("Enter the title : ");
         let book_title = book_title.trim();
 
@@ -20,10 +20,17 @@ impl LibraryServices {
     }
 
     pub fn list_books(&mut self) {
-        self.presenter.print_text_blue("\nlisting books in service");
+        self.presenter.print_text_blue("\nListing section.\n");
+
+        let books = self.repository.list();
+
+        for (index, book) in books.iter().enumerate() {
+            self.presenter
+                .print_text_green(&format!("{}. {}", index + 1, book.get_title())[..]);
+        }
     }
 
     pub fn delete_book(&mut self) {
-        self.presenter.print_text_blue("\ndeleting book in service");
+        self.presenter.print_text_blue("\nDeleting section.\n");
     }
 }
