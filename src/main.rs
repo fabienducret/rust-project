@@ -41,10 +41,8 @@ fn ask_for_action(presenter: &mut ConsolePresenter, library_services: &mut Libra
 fn get_action(presenter: &mut ConsolePresenter) -> u32 {
     let action_input = presenter.ask_for_line("Please enter your action :".to_string());
 
-    let action = match action_input.trim().parse() {
+    match action_input.trim().parse() {
         Ok(action) => action,
         Err(_) => 0,
-    };
-
-    return action;
+    }
 }
