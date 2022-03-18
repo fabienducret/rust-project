@@ -20,6 +20,7 @@ fn main() {
     };
 
     presenter.print_text_blue("\nWelcome on your Library Manager !\n");
+
     ask_for_action(&mut presenter, &mut library_services);
 }
 
@@ -32,7 +33,7 @@ fn ask_for_action(presenter: &mut ConsolePresenter, library_services: &mut Libra
         action = get_action(presenter);
 
         match action {
-            1 => library_services.add_book(),
+            1 => library_services.ask_title_and_store_book(),
             2 => library_services.list_books(),
             3 => library_services.delete_book(),
             9 => presenter.print_text_blue("\nBye ! :)"),

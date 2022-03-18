@@ -6,24 +6,28 @@ pub struct LibraryServices {
 }
 
 impl LibraryServices {
-    pub fn add_book(&mut self) {
+    pub fn ask_title_and_store_book(&mut self) {
         self.presenter.print_text_blue("\nAdding a book section.\n");
-        let book_title = self.presenter.ask_for_line("Enter the title : ");
-        let book_title = book_title.trim();
+        let title = self.ask_title();
 
-        if !book_title.is_empty() {
-            self.store_book(book_title);
+        if !title.is_empty() {
+            self.store_book(title);
         } else {
             self.presenter.print_text_red("Empty title.");
         }
     }
 
-    fn store_book(&mut self, book_title: &str) {
-        let is_created = self.repository.add(book_title.to_string());
+    fn ask_title(&mut self) -> String {
+        let title = self.presenter.ask_for_line("Enter the title : ");
+        return title.trim().to_string();
+    }
+
+    fn store_book(&mut self, title: String) {
+        let is_created = self.repository.add(title.to_string());
 
         if is_created {
             self.presenter
-                .print_text_green(&format!("Book \"{}\" correclty added !", book_title)[..]);
+                .print_text_green(&format!("Book \"{}\" correclty added !", title)[..]);
         }
     }
 
