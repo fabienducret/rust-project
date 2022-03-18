@@ -1,48 +1,41 @@
 use crate::interfaces::{presenter::Presenter, repository::Repository};
 
 pub struct LibraryServices {
-    pub(crate) presenter: Box<dyn Presenter>,
-    pub(crate) repository: Box<dyn Repository>,
+    pub presenter: Box<dyn Presenter>,
+    pub repository: Box<dyn Repository>,
 }
 
 impl LibraryServices {
     pub fn ask_title_and_store_book(&mut self) {
         self.presenter.print_text_blue("\nAdding a book section.\n");
-        let title = self.ask_title();
+        let title = self.presenter.ask_for_book_title();
 
         if !title.is_empty() {
-            self.store_book(title);
+            self.store_book_and_display_result(title);
         } else {
             self.presenter.print_text_red("Empty title.");
         }
     }
 
-    fn ask_title(&mut self) -> String {
-        let title = self.presenter.ask_for_line("Enter the title : ");
-        return title.trim().to_string();
-    }
-
-    fn store_book(&mut self, title: String) {
+    fn store_book_and_display_result(&mut self, title: String) {
         let is_created = self.repository.add(title.to_string());
 
         if is_created {
             self.presenter
                 .print_text_green(&format!("Book \"{}\" correclty added !", title)[..]);
+        } else {
+            self.presenter.print_text_red("Error in book storing");
         }
     }
 
     pub fn list_books(&mut self) {
         self.presenter.print_text_blue("\nListing section.\n");
+        let books = self.repository.get_all();
 
-        let books = self.repository.list();
-
-        if books.len() == 0 {
-            self.presenter.print_text_green("No book stored.");
+        if books.len() > 0 {
+            self.presenter.display_books(books);
         } else {
-            for (index, book) in books.iter().enumerate() {
-                self.presenter
-                    .print_text_green(&format!("{}. {}", index + 1, book.get_title())[..]);
-            }
+            self.presenter.print_text_green("No book stored.");
         }
     }
 

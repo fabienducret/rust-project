@@ -1,4 +1,4 @@
-use crate::interfaces::presenter::Presenter;
+use crate::{entities::book::Book, interfaces::presenter::Presenter};
 use std::io;
 
 pub struct ConsolePresenter {}
@@ -28,5 +28,25 @@ impl Presenter for ConsolePresenter {
             .expect("Failed to read line");
 
         return param;
+    }
+
+    fn ask_for_action(&self) -> u32 {
+        let action_input = self.ask_for_line("Please enter your action :");
+
+        match action_input.trim().parse() {
+            Ok(action) => action,
+            Err(_) => 0,
+        }
+    }
+
+    fn ask_for_book_title(&self) -> String {
+        let title = self.ask_for_line("Enter the title : ");
+        return title.trim().to_string();
+    }
+
+    fn display_books(&self, books: &Vec<Book>) {
+        for (index, book) in books.iter().enumerate() {
+            self.print_text_green(&format!("{}. {}", index + 1, book.get_title())[..]);
+        }
     }
 }

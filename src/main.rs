@@ -30,7 +30,7 @@ fn ask_for_action(presenter: &mut ConsolePresenter, library_services: &mut Libra
     while action != 9 {
         presenter.print_text("\n1 for adding \n2 for listing \n3 for deleting \n9 for leaving");
 
-        action = get_action(presenter);
+        action = presenter.ask_for_action();
 
         match action {
             1 => library_services.ask_title_and_store_book(),
@@ -39,14 +39,5 @@ fn ask_for_action(presenter: &mut ConsolePresenter, library_services: &mut Libra
             9 => presenter.print_text_blue("\nBye ! :)"),
             _ => presenter.print_text_red("\nInvalid action"),
         }
-    }
-}
-
-fn get_action(presenter: &mut ConsolePresenter) -> u32 {
-    let action_input = presenter.ask_for_line("Please enter your action :");
-
-    match action_input.trim().parse() {
-        Ok(action) => action,
-        Err(_) => 0,
     }
 }
