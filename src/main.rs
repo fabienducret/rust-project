@@ -20,7 +20,6 @@ fn main() {
     };
 
     presenter.print_text_blue("\nWelcome on your Library Manager !\n");
-
     ask_for_action(&mut presenter, &mut library_services);
 }
 
