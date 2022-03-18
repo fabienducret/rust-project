@@ -11,6 +11,14 @@ impl LibraryServices {
         let book_title = self.presenter.ask_for_line("Enter the title : ");
         let book_title = book_title.trim();
 
+        if !book_title.is_empty() {
+            self.store_book(book_title);
+        } else {
+            self.presenter.print_text_red("Empty title.");
+        }
+    }
+
+    fn store_book(&mut self, book_title: &str) {
         let is_created = self.repository.add(book_title.to_string());
 
         if is_created {
@@ -24,9 +32,13 @@ impl LibraryServices {
 
         let books = self.repository.list();
 
-        for (index, book) in books.iter().enumerate() {
-            self.presenter
-                .print_text_green(&format!("{}. {}", index + 1, book.get_title())[..]);
+        if books.len() == 0 {
+            self.presenter.print_text_green("No book stored.");
+        } else {
+            for (index, book) in books.iter().enumerate() {
+                self.presenter
+                    .print_text_green(&format!("{}. {}", index + 1, book.get_title())[..]);
+            }
         }
     }
 
