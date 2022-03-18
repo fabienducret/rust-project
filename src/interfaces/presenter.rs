@@ -8,5 +8,6 @@ pub trait Presenter {
     fn ask_for_line(&self, question: &str) -> String;
     fn ask_for_action(&self) -> u32;
     fn ask_for_book_title(&self) -> String;
+    fn ask_for_book_to_delete(&self) -> u32;
     fn display_books(&self, books: &Vec<Book>);
 }

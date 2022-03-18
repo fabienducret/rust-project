@@ -41,5 +41,8 @@ impl LibraryServices {
 
     pub fn delete_book(&mut self) {
         self.presenter.print_text_blue("\nDeleting section.\n");
+        let book_id = self.presenter.ask_for_book_to_delete();
+
+        self.repository.delete(book_id);
     }
 }
