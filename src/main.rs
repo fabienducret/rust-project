@@ -33,9 +33,18 @@ fn ask_for_action(presenter: &mut ConsolePresenter, library_services: &mut Libra
         action = presenter.ask_for_action();
 
         match action {
-            1 => library_services.ask_title_and_store_book(),
-            2 => library_services.list_books(),
-            3 => library_services.delete_book(),
+            1 => {
+                presenter.print_text_blue("\nAdding a book section.\n");
+                library_services.ask_title_and_store_book();
+            }
+            2 => {
+                presenter.print_text_blue("\nListing section.\n");
+                library_services.list_books();
+            }
+            3 => {
+                presenter.print_text_blue("\nDeleting section.\n");
+                library_services.ask_for_book_and_delete();
+            }
             9 => presenter.print_text_blue("\nBye ! :)"),
             _ => presenter.print_text_red("\nInvalid action"),
         }

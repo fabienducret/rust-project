@@ -8,10 +8,14 @@ pub struct MemoryRepository {
 
 impl Repository for MemoryRepository {
     fn add(&mut self, title: String) -> bool {
-        let book = Book::new(title);
-        self.books.push(book);
+        if !title.is_empty() {
+            let book = Book::new(title);
+            self.books.push(book);
 
-        true
+            return true;
+        } else {
+            return false;
+        }
     }
     fn get_all(&mut self) -> &Vec<Book> {
         &self.books

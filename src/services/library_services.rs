@@ -7,29 +7,11 @@ pub struct LibraryServices {
 
 impl LibraryServices {
     pub fn ask_title_and_store_book(&mut self) {
-        self.presenter.print_text_blue("\nAdding a book section.\n");
-        let title = self.presenter.ask_for_book_title();
-
-        if !title.is_empty() {
-            self.store_book_and_display_result(title);
-        } else {
-            self.presenter.print_text_red("Empty title.");
-        }
-    }
-
-    fn store_book_and_display_result(&mut self, title: String) {
-        let is_created = self.repository.add(title.to_string());
-
-        if is_created {
-            self.presenter
-                .print_text_green(&format!("Book \"{}\" correclty added !", title)[..]);
-        } else {
-            self.presenter.print_text_red("Error in book storing");
-        }
+        let title = self.ask_title();
+        self.store_book_and_display_result(title);
     }
 
     pub fn list_books(&mut self) {
-        self.presenter.print_text_blue("\nListing section.\n");
         let books = self.repository.get_all();
 
         if books.len() > 0 {
@@ -39,10 +21,30 @@ impl LibraryServices {
         }
     }
 
-    pub fn delete_book(&mut self) {
-        self.presenter.print_text_blue("\nDeleting section.\n");
-        let book_id = self.presenter.ask_for_book_to_delete();
+    pub fn ask_for_book_and_delete(&mut self) {
+        let book_id = self.ask_for_book_to_delete();
+        self.delete_book_and_display_result(book_id);
+    }
 
+    fn ask_title(&mut self) -> String {
+        self.presenter.ask_for_book_title()
+    }
+
+    fn store_book_and_display_result(&mut self, title: String) {
+        let is_book_created = self.repository.add(title.to_string());
+
+        if is_book_created {
+            self.presenter.print_text_green("Book correclty added !");
+        } else {
+            self.presenter.print_text_red("Error in book storing");
+        }
+    }
+
+    fn ask_for_book_to_delete(&mut self) -> u32 {
+        self.presenter.ask_for_book_to_delete()
+    }
+
+    fn delete_book_and_display_result(&mut self, book_id: u32) {
         self.repository.delete(book_id);
     }
 }
