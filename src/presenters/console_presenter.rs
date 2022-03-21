@@ -4,6 +4,10 @@ use std::io;
 pub struct ConsolePresenter {}
 
 impl Presenter for ConsolePresenter {
+    fn new() -> Self {
+        ConsolePresenter {}
+    }
+
     fn print_text(&self, text: &str) {
         println!("{}", text);
     }

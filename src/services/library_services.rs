@@ -1,11 +1,18 @@
 use crate::interfaces::{presenter::Presenter, repository::Repository};
 
 pub struct LibraryServices {
-    pub presenter: Box<dyn Presenter>,
-    pub repository: Box<dyn Repository>,
+    presenter: Box<dyn Presenter>,
+    repository: Box<dyn Repository>,
 }
 
 impl LibraryServices {
+    pub fn new(presenter: impl Presenter + 'static, repository: impl Repository + 'static) -> Self {
+        LibraryServices {
+            presenter: Box::new(presenter),
+            repository: Box::new(repository),
+        }
+    }
+
     pub fn ask_title_and_store_book(&mut self) {
         let title = self.ask_title();
         self.store_book_and_display_result(title);

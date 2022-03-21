@@ -4,20 +4,15 @@ mod presenters;
 mod repositories;
 mod services;
 
-use entities::book::Book;
-use interfaces::presenter::Presenter;
+use interfaces::{presenter::Presenter, repository::Repository};
 use presenters::console_presenter::ConsolePresenter;
 use repositories::memory_repository::MemoryRepository;
 use services::library_services::LibraryServices;
 
 fn main() {
     let mut presenter = ConsolePresenter {};
-    let mut library_services = LibraryServices {
-        presenter: Box::new(ConsolePresenter {}),
-        repository: Box::new(MemoryRepository {
-            books: Vec::<Book>::new(),
-        }),
-    };
+    let mut library_services =
+        LibraryServices::new(ConsolePresenter::new(), MemoryRepository::new());
 
     presenter.print_text_blue("\nWelcome on your Library Manager !\n");
 

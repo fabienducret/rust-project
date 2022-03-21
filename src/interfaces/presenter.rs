@@ -1,6 +1,9 @@
 use crate::entities::book::Book;
 
 pub trait Presenter {
+    fn new() -> Self
+    where
+        Self: Sized;
     fn print_text(&self, text: &str);
     fn print_text_blue(&self, text: &str);
     fn print_text_green(&self, text: &str);

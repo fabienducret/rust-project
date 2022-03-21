@@ -1,10 +1,16 @@
 use crate::{entities::book::Book, interfaces::repository::Repository};
 
 pub struct MemoryRepository {
-    pub books: Vec<Book>,
+    books: Vec<Book>,
 }
 
 impl Repository for MemoryRepository {
+    fn new() -> Self {
+        MemoryRepository {
+            books: Vec::<Book>::new(),
+        }
+    }
+
     fn add(&mut self, title: String) -> bool {
         if !title.is_empty() {
             let book = Book::new(title);
