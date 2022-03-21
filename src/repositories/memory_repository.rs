@@ -1,5 +1,3 @@
-use std::convert::TryInto;
-
 use crate::{entities::book::Book, interfaces::repository::Repository};
 
 pub struct MemoryRepository {
@@ -11,16 +9,24 @@ impl Repository for MemoryRepository {
         if !title.is_empty() {
             let book = Book::new(title);
             self.books.push(book);
-
-            return true;
+            true
         } else {
-            return false;
+            false
         }
     }
     fn get_all(&mut self) -> &Vec<Book> {
         &self.books
     }
-    fn delete(&mut self, book_id: u32) {
-        self.books.remove((book_id - 1).try_into().unwrap());
+    fn delete(&mut self, book_id: u32) -> bool {
+        let index_to_delete = (book_id - 1) as usize;
+        let boot_to_delete = self.books.get(index_to_delete);
+
+        match boot_to_delete {
+            Some(_) => {
+                self.books.remove(index_to_delete);
+                true
+            }
+            _ => false,
+        }
     }
 }

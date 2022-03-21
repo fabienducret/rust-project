@@ -45,6 +45,12 @@ impl LibraryServices {
     }
 
     fn delete_book_and_display_result(&mut self, book_id: u32) {
-        self.repository.delete(book_id);
+        let is_book_deleted = self.repository.delete(book_id);
+
+        if is_book_deleted {
+            self.presenter.print_text_green("Book correclty deleted !");
+        } else {
+            self.presenter.print_text_red("Error in deleting book");
+        }
     }
 }
