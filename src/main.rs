@@ -10,7 +10,7 @@ use repositories::memory_repository::MemoryRepository;
 use services::library_services::LibraryServices;
 
 fn main() {
-    let mut presenter = ConsolePresenter {};
+    let mut presenter = ConsolePresenter::new();
     let mut library_services =
         LibraryServices::new(ConsolePresenter::new(), MemoryRepository::new());
 
