@@ -6,13 +6,12 @@ mod services;
 
 use interfaces::{presenter::Presenter, repository::Repository};
 use presenters::console_presenter::ConsolePresenter;
-use repositories::memory_repository::MemoryRepository;
+use repositories::file_repository::FileRepository;
 use services::library_services::LibraryServices;
 
 fn main() {
     let mut presenter = ConsolePresenter::new();
-    let mut library_services =
-        LibraryServices::new(ConsolePresenter::new(), MemoryRepository::new());
+    let mut library_services = LibraryServices::new(ConsolePresenter::new(), FileRepository::new());
 
     presenter.print_text_blue("\nWelcome on your Library Manager !\n");
 
