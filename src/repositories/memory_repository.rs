@@ -22,14 +22,10 @@ impl Repository for MemoryRepository {
     }
 
     fn get_all(&mut self) -> Vec<Book> {
-        let mut books = Vec::<Book>::new();
-
-        for db_book in &self.books {
-            let book = Book::new(db_book.get_title());
-            books.push(book);
-        }
-
-        books
+        self.books
+            .iter()
+            .map(|book| Book::new(book.get_title()))
+            .collect::<Vec<Book>>()
     }
 
     fn delete(&mut self, book_id: u32) -> bool {

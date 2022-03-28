@@ -31,13 +31,10 @@ impl Repository for FileRepository {
         let file_content = File::open("./data/books.csv").expect("Unable to open file");
         let file_content = BufReader::new(file_content);
 
-        let mut books = Vec::<Book>::new();
-        for line in file_content.lines() {
-            let book = Book::new(line.expect("Unable to read line"));
-            books.push(book);
-        }
-
-        books
+        file_content
+            .lines()
+            .map(|line| Book::new(line.unwrap()))
+            .collect::<Vec<Book>>()
     }
 
     fn delete(&mut self, _book_id: u32) -> bool {
