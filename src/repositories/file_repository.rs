@@ -30,7 +30,7 @@ impl Repository for FileRepository {
 
         file_content
             .lines()
-            .map(|line| Book::new(line.unwrap()))
+            .map(|line| Book::new(line.expect("Error reading line")))
             .collect::<Vec<Book>>()
     }
 
