@@ -57,7 +57,7 @@ impl Presenter for ConsolePresenter {
         }
     }
 
-    fn display_books(&self, books: &Vec<Book>) {
+    fn display_books(&self, books: Vec<Book>) {
         for (index, book) in books.iter().enumerate() {
             self.print_text_green(&format!("{}. {}", index + 1, book.get_title())[..]);
         }

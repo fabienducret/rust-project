@@ -5,15 +5,11 @@ use std::{
 
 use crate::{entities::book::Book, interfaces::repository::Repository};
 
-pub struct FileRepository {
-    books: Vec<Book>,
-}
+pub struct FileRepository {}
 
 impl Repository for FileRepository {
     fn new() -> Self {
-        FileRepository {
-            books: Vec::<Book>::new(),
-        }
+        FileRepository {}
     }
 
     fn add(&mut self, title: String) -> bool {
@@ -31,17 +27,17 @@ impl Repository for FileRepository {
         true
     }
 
-    fn get_all(&mut self) -> &Vec<Book> {
+    fn get_all(&mut self) -> Vec<Book> {
         let file_content = File::open("./data/books.csv").expect("Unable to open file");
         let file_content = BufReader::new(file_content);
 
-        self.books = Vec::<Book>::new();
+        let mut books = Vec::<Book>::new();
         for line in file_content.lines() {
             let book = Book::new(line.expect("Unable to read line"));
-            self.books.push(book);
+            books.push(book);
         }
 
-        &self.books
+        books
     }
 
     fn delete(&mut self, _book_id: u32) -> bool {
