@@ -13,23 +13,20 @@ impl Repository for FileRepository {
     }
 
     fn add(&mut self, title: String) -> bool {
-        let file = OpenOptions::new()
-            .append(true)
-            .open("./data/books.csv")
-            .expect("Unable to open file");
+        let file = open_file();
 
         let data = "\n".to_string() + &title;
         let data = data.as_bytes();
 
-        let mut file = BufWriter::new(file);
-        file.write_all(data).expect("Unable to write data");
+        let mut buffer = BufWriter::new(file);
+        buffer.write_all(data).expect("Unable to write data");
 
         true
     }
 
     fn get_all(&mut self) -> Vec<Book> {
-        let file_content = File::open("./data/books.csv").expect("Unable to open file");
-        let file_content = BufReader::new(file_content);
+        let file = get_file();
+        let file_content = BufReader::new(file);
 
         file_content
             .lines()
@@ -40,4 +37,19 @@ impl Repository for FileRepository {
     fn delete(&mut self, _book_id: u32) -> bool {
         true
     }
+}
+
+fn file_path() -> &'static str {
+    "./data/books.csv"
+}
+
+fn open_file() -> File {
+    OpenOptions::new()
+        .append(true)
+        .open(file_path())
+        .expect("Unable to open file")
+}
+
+fn get_file() -> File {
+    File::open(file_path()).expect("Unable to open file")
 }
